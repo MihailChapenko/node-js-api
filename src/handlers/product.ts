@@ -64,11 +64,7 @@ export const deleteProduct = async (req, res) => {
             }
         }
     })
-    if (err === null) {
-        res.status(204)
-        res.json({message: "product deleted successfully"})
-    } else {
-        res.status(500)
-        res.json({message: "product was not deleted"})
-    }
+
+    res.status(204)
+    res.json({message: "product deleted successfully"})
 }

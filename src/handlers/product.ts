@@ -56,7 +56,7 @@ export const updateProduct = async (req, res) => {
 }
 
 export const deleteProduct = async (req, res) => {
-    const err = await db.product.delete({
+    const result = await db.product.delete({
         where: {
             id_belongsToId: {
                 id: req.params.id,
@@ -65,6 +65,5 @@ export const deleteProduct = async (req, res) => {
         }
     })
 
-    res.status(204)
-    res.json({message: "product deleted successfully"})
+    res.json({result})
 }

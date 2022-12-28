@@ -18,13 +18,27 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    console.log("hello from express")
-    res.status(200)
-    res.json({message: "hello"})
+    throw new Error("Some error")
 })
+
+app.use('/api', protect, router)
 
 app.post("/register", createNewUser);
 app.post("/signin", signIn);
-app.use('/api', protect, router)
+
+app.use((err, req, res, next) => {
+    if (err.type === "auth") {
+        res.status(401);
+        res.json({ message: "nope" });
+    }
+
+    if (err.type === 'input') {
+        res.status(400)
+        res.json({message:'invalid input'})
+    }
+
+    res.status(500)
+    res.json({message: "opps... That's on us"})
+})
 
 export default app

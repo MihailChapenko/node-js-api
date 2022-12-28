@@ -10,7 +10,6 @@ export const getProducts = async (req, res) => {
         }
     })
 
-    res.status(200)
     res.json(user.products)
 }
 
@@ -22,20 +21,22 @@ export const getOneProduct = async (req, res) => {
         }
     })
 
-    res.status(200)
     res.json({data: product})
 }
 
-export const createProduct = async (req, res) => {
-    const product = await db.product.create({
-        data: {
-            belongsToId: req.user.id,
-            title: req.body.title
-        }
-    })
+export const createProduct = async (req, res, next) => {
+    try {
+        const product = await db.product.create({
+            data: {
+                belongsToId: req.user.id,
+                title: req.body.title
+            }
+        })
 
-    res.status(201);
-    res.json({data: product});
+        res.json({data: product});
+    } catch (e) {
+        next(e)
+    }
 }
 
 export const updateProduct = async (req, res) => {
@@ -50,8 +51,7 @@ export const updateProduct = async (req, res) => {
             title: req.body.title
         }
     })
-
-    res.status(200)
+    
     res.json({product: product})
 }
 

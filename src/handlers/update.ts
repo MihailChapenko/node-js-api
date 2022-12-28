@@ -62,7 +62,7 @@ export const updateUpdate = async (req, res) => {
 export const createUpdate = async (req, res) => {
     const product = await db.product.findUnique({
         where: {
-            id: req.body.id
+            id: req.body.productId
         }
     })
 
@@ -71,7 +71,13 @@ export const createUpdate = async (req, res) => {
     }
 
     const update = await db.update.create({
-        data: req.body
+        data: {
+            title: req.body.title,
+            body: req.body.body,
+            product: {
+                connect: {id: product.id}
+            }
+        }
     })
 
     res.json({data: update})
@@ -97,7 +103,7 @@ export const deleteUpdate = async (req, res) => {
         res.json({message: 'nope'})
     }
 
-    const result = db.update.delete({
+    const result = await db.update.delete({
         where: {
             id: req.params.id
         }

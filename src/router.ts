@@ -12,8 +12,14 @@ const router = Router()
  */
 router.get("/product", getProducts);
 router.get("/product/:id", getOneProduct);
-router.post("/product", body("title").isString(), handleInputErrors, createProduct);
-router.put("/product/:id", body("title").isString(), handleInputErrors, updateProduct);
+router.post("/product",
+    body("title").isString(),
+    handleInputErrors,
+    createProduct);
+router.put("/product/:id",
+    body("title").isString(),
+    handleInputErrors,
+    updateProduct);
 router.delete("/product/:id", deleteProduct);
 
 /**
@@ -30,7 +36,7 @@ router.post("/update",
 router.put("/update/:id",
     body("title").optional(),
     body("body").optional(),
-    body("status").isIn([UPDATE_STATUS]).optional(),
+    body("status").optional(),
     body("version").optional(),
     handleInputErrors,
     updateUpdate);
@@ -39,7 +45,6 @@ router.delete("/update/:id", deleteUpdate);
 /**
  * UpdatePoint
  */
-
 router.get("/updatepoint", (req, res) => {
 });
 
@@ -61,5 +66,9 @@ router.put("/updatepoint/:id", (req, res) => {
 
 router.delete("/updatepoint/:id", (req, res) => {
 });
+
+router.use((err, req, res, next) => {
+    console.log(err)
+})
 
 export default router;

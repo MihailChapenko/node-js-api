@@ -44,7 +44,7 @@ model Update {
   version   String?
   asset     String?
   createdAt DateTime      @default(now())
-  updatedAt DateTime
+  updatedAt DateTime      @updatedAt
 
   productId    String
   product      Product       @relation(fields: [productId], references: [id])

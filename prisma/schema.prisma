@@ -48,16 +48,5 @@ model Update {
 
   productId    String
   product      Product       @relation(fields: [productId], references: [id])
-  updatePoints UpdatePoint[]
 }
 
-model UpdatePoint {
-  id          String   @id @default(uuid())
-  title       String   @db.VarChar(255)
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime
-
-  updateId String
-  update   Update @relation(fields: [updateId], references: [id])
-}

@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    throw new Error("Some error")
+    res.json({message: 'hello'})
 })
 
 app.use('/api', protect, router)
